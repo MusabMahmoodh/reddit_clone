@@ -2,15 +2,10 @@ import { Entity,PrimaryKey ,Property} from "@mikro-orm/core";
 import { Field,  ObjectType } from "type-graphql";
 @ObjectType() //to make this as type script type
 @Entity()
-export class Post  {
+export class User {
     @Field()
     @PrimaryKey()
     id!: number;
-
-    @Field()
-    @Property({type:"text"})
-    title!: string;
-
     @Field(() => String)
     @Property({type:"date"})
     createdAt = new Date();
@@ -18,6 +13,16 @@ export class Post  {
     @Field(() => String)
     @Property({type:"date", onUpdate: () => new Date() })
     updatedAt = new Date();
+
+    @Field()
+    @Property({type:"text",unique:true})
+    username!: string;
+
+    //not expose password
+    @Property({type:"text"})
+    password!: string;
+
+   
 
 
 }
